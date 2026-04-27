@@ -5,41 +5,28 @@ exports.handler = async function(event, context) {
   const API_PASS = 'f2rpbfw0x3p13nflmdfmrif4fe3f0r3oo23lgxrgtm';
   const auth     = Buffer.from(API_USER + ':' + API_PASS).toString('base64');
 
-  const endpoints = [
-    '/api/public/v1/locations',
-    '/api/public/v1/service_providers',
-  ];
+  try {
+    const data = await fetchJSON('agendapro.com', '/api/public/v1/locations', auth);
+    
+    const list = Array.isArray(data) ? data
+               : (data.locations || data.data || data.results || []);
 
-  for (const path of endpoints) {
-    try {
-      let all = [];
-      let page = 1;
-
-      while (true) {
-        const data = await fetchJSON('agendapro.com', path + '?page=' + page + '&per_page=50', auth);
-        const list = Array.isArray(data) ? data
-                   : (data.locations || data.service_providers || data.data || data.results || []);
-        if (!list || list.length === 0) break;
-        all = all.concat(list);
-        if (list.length < 50) break;
-        if (++page > 10) break;
-      }
-
-      if (all.length > 0) {
-        return {
-          statusCode: 200,
-          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-          body: JSON.stringify({ branches: all, raw_sample: all[0] })
-        };
-      }
-    } catch(e) { /* siguiente */ }
+    return {
+      statusCode: 200,
+      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      body: JSON.stringify({
+        branches: list,
+        total: list.length,
+        raw_full: data
+      })
+    };
+  } catch(e) {
+    return {
+      statusCode: 502,
+      headers: { 'Access-Control-Allow-Origin': '*' },
+      body: JSON.stringify({ error: e.message })
+    };
   }
-
-  return {
-    statusCode: 502,
-    headers: { 'Access-Control-Allow-Origin': '*' },
-    body: JSON.stringify({ error: 'Sin resultados' })
-  };
 };
 
 function fetchJSON(host, path, auth) {
