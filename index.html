@@ -8,18 +8,12 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --black: #090909;
-  --card: #111;
-  --red: #C41E1E;
-  --red-glow: rgba(196,30,30,0.11);
-  --border: rgba(255,255,255,0.09);
-  --white: #ffffff;
-  --off: rgba(255,255,255,0.55);
+  --black: #090909; --card: #111; --red: #C41E1E;
+  --red-glow: rgba(196,30,30,0.11); --border: rgba(255,255,255,0.09);
 }
 html { scroll-behavior: smooth; }
-body { font-family:'DM Sans',sans-serif; background:var(--black); color:var(--white); overflow-x:hidden; }
+body { font-family:'DM Sans',sans-serif; background:var(--black); color:#fff; overflow-x:hidden; }
 
-/* NAV */
 nav {
   position:fixed; top:0; left:0; right:0; z-index:200;
   display:flex; align-items:center; justify-content:space-between;
@@ -35,7 +29,6 @@ nav {
 }
 .nav-pill:hover { opacity:.85; }
 
-/* HERO */
 .hero {
   padding:130px 56px 72px;
   display:flex; flex-direction:column; align-items:center; text-align:center; gap:28px;
@@ -55,7 +48,6 @@ nav {
 }
 .badge::before { content:''; width:6px; height:6px; background:var(--red); border-radius:50%; animation:blink 2s ease infinite; }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
-
 .hero-title {
   font-family:'DM Serif Display',serif;
   font-size:clamp(40px,5.5vw,76px); font-weight:400; line-height:1.07;
@@ -63,126 +55,81 @@ nav {
   animation:fadeUp .6s .1s ease both;
 }
 .hero-title em { font-style:italic; color:var(--red); }
-
-.hero-sub {
-  font-size:15px; font-weight:300; line-height:1.8;
-  color:rgba(255,255,255,0.65); max-width:440px;
-  animation:fadeUp .6s .2s ease both;
-}
-.trust-row {
-  display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:center;
-  animation:fadeUp .6s .3s ease both;
-}
-.trust-item {
-  display:flex; align-items:center; gap:7px;
-  font-size:12px; color:rgba(255,255,255,0.6);
-  padding:6px 14px; border:1px solid var(--border);
-}
+.hero-sub { font-size:15px; font-weight:300; line-height:1.8; color:rgba(255,255,255,0.6); max-width:440px; animation:fadeUp .6s .2s ease both; }
+.trust-row { display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:center; animation:fadeUp .6s .3s ease both; }
+.trust-item { display:flex; align-items:center; gap:7px; font-size:12px; color:rgba(255,255,255,0.55); padding:6px 14px; border:1px solid var(--border); }
 .trust-item svg { color:var(--red); flex-shrink:0; }
 .trust-sep { width:1px; height:14px; background:var(--border); }
 @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
 
 /* AGENDA */
 .agenda-section { padding:16px 32px 100px; display:flex; flex-direction:column; align-items:center; }
-.section-label {
-  font-size:10px; letter-spacing:.2em; text-transform:uppercase;
-  color:rgba(255,255,255,0.4);
-  display:flex; align-items:center; gap:16px; margin-bottom:32px;
-}
+.section-label { font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,0.35); display:flex; align-items:center; gap:16px; margin-bottom:32px; }
 .section-label::before,.section-label::after { content:''; height:1px; width:60px; background:var(--border); }
 
 /* STATES */
-.state-box {
-  width:100%; max-width:960px; min-height:260px;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap:16px; border:1px solid var(--border); background:var(--card); padding:40px;
-}
+.state-box { width:100%; max-width:1100px; min-height:260px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; border:1px solid var(--border); background:var(--card); padding:40px; }
 .spinner { width:36px; height:36px; border:2px solid rgba(255,255,255,0.1); border-top-color:var(--red); border-radius:50%; animation:spin .8s linear infinite; }
 @keyframes spin { to{transform:rotate(360deg)} }
-.state-text  { font-size:14px; color:#fff; }
+.state-text { font-size:14px; color:#fff; }
 .state-error { color:#ff8080; font-size:14px; text-align:center; line-height:1.7; }
-.retry-btn {
-  font-size:12px; color:var(--red); background:none;
-  border:1px solid var(--red); padding:8px 24px; cursor:pointer;
-  font-family:inherit; transition:background .2s,color .2s;
-}
-.retry-btn:hover { background:var(--red); color:#fff; }
-
-/* DEBUG */
-.debug-toggle {
-  font-size:11px; color:rgba(255,255,255,0.25); background:none;
-  border:none; cursor:pointer; text-decoration:underline; margin-top:12px;
-}
-.debug-box {
-  display:none; width:100%; max-width:960px;
-  background:#0d0d0d; border:1px solid #333; padding:20px 24px; margin-top:8px;
-  font-family:monospace; font-size:11px; color:#6f9; line-height:1.7;
-  white-space:pre-wrap; word-break:break-all;
-}
 
 /* TABS */
-.tabs-wrap { width:100%; max-width:960px; }
-.tabs-nav { display:flex; border-bottom:1px solid var(--border); overflow-x:auto; scrollbar-width:none; }
-.tabs-nav::-webkit-scrollbar { display:none; }
-.tab-btn {
-  flex-shrink:0; padding:14px 28px;
-  font-family:'DM Sans',sans-serif; font-size:13px; font-weight:400;
-  color:rgba(255,255,255,0.45); background:transparent; border:none;
-  border-bottom:2px solid transparent; cursor:pointer;
-  transition:color .2s,border-color .2s; white-space:nowrap;
+.tabs-wrap { width:100%; max-width:1100px; }
+
+.tabs-nav {
+  display:grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-bottom:2px solid var(--border);
 }
-.tab-btn:hover { color:#fff; }
-.tab-btn.active { color:#fff; border-bottom-color:var(--red); font-weight:500; }
+
+.tab-btn {
+  padding:20px 12px;
+  font-family:'DM Sans',sans-serif; font-size:14px; font-weight:500;
+  color:rgba(255,255,255,0.4); background:transparent; border:none;
+  border-bottom:3px solid transparent; margin-bottom:-2px;
+  cursor:pointer; transition:color .2s,border-color .2s,background .2s;
+  text-align:center; letter-spacing:0.02em;
+}
+.tab-btn:hover { color:#fff; background:rgba(255,255,255,0.03); }
+.tab-btn.active { color:#fff; border-bottom-color:var(--red); background:rgba(196,30,30,0.06); }
+
 .tab-panel { display:none; }
 .tab-panel.active { display:block; }
 
-/* BRANCH CARD */
-.branch-card {
-  background:var(--card); border:1px solid var(--border); border-top:none;
-  display:grid; grid-template-columns:1fr 1fr; min-height:320px;
+/* IFRAME PANEL */
+.iframe-panel {
+  background:#fff;
+  border:1px solid var(--border);
+  border-top:none;
+  width:100%;
+  overflow:hidden;
 }
-.branch-info { padding:52px 48px; display:flex; flex-direction:column; gap:22px; border-right:1px solid var(--border); }
-.branch-name { font-family:'DM Serif Display',serif; font-size:30px; font-weight:400; color:#fff; line-height:1.2; }
-.branch-detail {
-  display:flex; align-items:flex-start; gap:10px;
-  font-size:14px; font-weight:300; color:rgba(255,255,255,0.7); line-height:1.65;
+.iframe-panel iframe {
+  display:block;
+  width:100%;
+  min-height:750px;
+  border:none;
 }
-.branch-detail svg { flex-shrink:0; margin-top:3px; color:var(--red); }
-.branch-cta-area { padding:52px 48px; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap:20px; }
-.branch-cta-title { font-size:14px; color:rgba(255,255,255,0.6); font-weight:300; line-height:1.7; max-width:280px; }
-
-.btn-agenda {
-  display:inline-flex; align-items:center; gap:12px;
-  font-family:'DM Sans',sans-serif; font-size:14px; font-weight:500;
-  text-decoration:none; color:#fff; background:var(--red); padding:16px 36px;
-  transition:transform .2s,box-shadow .2s,opacity .2s; position:relative; overflow:hidden;
-}
-.btn-agenda::after { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(255,255,255,0.07) 0%,transparent 55%); }
-.btn-agenda:hover { transform:translateY(-2px); box-shadow:0 14px 40px rgba(196,30,30,0.35); opacity:.92; }
-.btn-note { font-size:12px; color:rgba(255,255,255,0.35); display:flex; align-items:center; gap:6px; }
 
 /* STATS */
-.stats { width:100%; max-width:960px; display:grid; grid-template-columns:repeat(3,1fr); border:1px solid var(--border); border-top:none; margin-top:-1px; }
+.stats { width:100%; max-width:1100px; display:grid; grid-template-columns:repeat(3,1fr); border:1px solid var(--border); border-top:none; margin-top:-1px; }
 .stat { padding:28px 32px; border-right:1px solid var(--border); display:flex; flex-direction:column; gap:6px; }
 .stat:last-child { border-right:none; }
 .stat-num { font-family:'DM Serif Display',serif; font-size:36px; color:#fff; line-height:1; }
 .stat-num span { color:var(--red); }
-.stat-desc { font-size:12px; color:rgba(255,255,255,0.5); font-weight:300; line-height:1.5; }
+.stat-desc { font-size:12px; color:rgba(255,255,255,0.45); font-weight:300; line-height:1.5; }
 
-/* FOOTER */
 footer { border-top:1px solid var(--border); padding:24px 56px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
 .footer-logo { height:36px; width:auto; }
-footer p { font-size:12px; color:rgba(255,255,255,0.3); }
+footer p { font-size:12px; color:rgba(255,255,255,0.25); }
 
-/* RESPONSIVE */
 @media(max-width:800px){
   nav { padding:12px 20px; } .nav-logo { height:42px; }
   .hero { padding:105px 20px 60px; }
   .agenda-section { padding:16px 0 70px; }
-  .branch-card { grid-template-columns:1fr; }
-  .branch-info { border-right:none; border-bottom:1px solid var(--border); padding:36px 24px; }
-  .branch-cta-area { padding:32px 24px; }
-  .tab-btn { padding:12px 16px; font-size:12px; }
+  .tabs-nav { grid-template-columns:1fr 1fr; }
+  .tab-btn { font-size:12px; padding:16px 8px; }
   .stats { grid-template-columns:1fr; }
   .stat { border-right:none; border-bottom:1px solid var(--border); }
   .stat:last-child { border-bottom:none; }
@@ -201,7 +148,7 @@ footer p { font-size:12px; color:rgba(255,255,255,0.3); }
 <section class="hero">
   <span class="badge">Agenda online · Sin espera</span>
   <h1 class="hero-title">Reserva tu cita en<br><em>Sculpt Body</em></h1>
-  <p class="hero-sub">Elige tu sucursal, tratamiento y el horario que más te acomode. Sin llamadas, sin filas.</p>
+  <p class="hero-sub">Elige tu sucursal y el horario que más te acomode. Sin llamadas, sin filas.</p>
   <div class="trust-row">
     <div class="trust-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Evaluación gratuita</div>
     <div class="trust-sep"></div>
@@ -219,9 +166,7 @@ footer p { font-size:12px; color:rgba(255,255,255,0.3); }
     <p class="state-text">Cargando sucursales...</p>
   </div>
   <div class="state-box" id="error-state" style="display:none;">
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ff8080" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
     <p class="state-error" id="error-msg"></p>
-    <button class="retry-btn" onclick="loadBranches()">Reintentar</button>
   </div>
 
   <div class="tabs-wrap" id="tabs-wrap" style="display:none;">
@@ -233,9 +178,6 @@ footer p { font-size:12px; color:rgba(255,255,255,0.3); }
       <div class="stat"><div class="stat-num"><span>$</span>0</div><div class="stat-desc">Costo en tu evaluación inicial</div></div>
     </div>
   </div>
-
-  <button class="debug-toggle" onclick="document.getElementById('debug-box').style.display = document.getElementById('debug-box').style.display==='block'?'none':'block'">ver datos API (debug)</button>
-  <pre class="debug-box" id="debug-box"></pre>
 </section>
 
 <footer>
@@ -245,13 +187,6 @@ footer p { font-size:12px; color:rgba(255,255,255,0.3); }
 
 <script>
 const PROXY_URL = '/api/branches';
-
-function showError(html) {
-  document.getElementById('loading-state').style.display = 'none';
-  document.getElementById('tabs-wrap').style.display = 'none';
-  document.getElementById('error-state').style.display = 'flex';
-  document.getElementById('error-msg').innerHTML = html;
-}
 
 function switchTab(idx) {
   document.querySelectorAll('.tab-btn').forEach((b,i)   => b.classList.toggle('active', i===idx));
@@ -263,75 +198,45 @@ function buildTabs(branches) {
   document.getElementById('error-state').style.display   = 'none';
   document.getElementById('tabs-wrap').style.display     = 'block';
 
-  const nav = document.getElementById('tabs-nav');
+  const nav     = document.getElementById('tabs-nav');
   const content = document.getElementById('tabs-content');
   nav.innerHTML = ''; content.innerHTML = '';
 
   branches.forEach((b, i) => {
     const btn = document.createElement('button');
     btn.className = 'tab-btn' + (i===0?' active':'');
-    // Limpiar nombre: quitar prefijo 'Agenda ' si existe
-    const rawName = b.name || b.title || ('Sucursal ' + (i+1));
-    btn.textContent = rawName.replace(/^Agenda\s*/i, '');
+    btn.textContent = b.nombre;
     btn.addEventListener('click', () => switchTab(i));
     nav.appendChild(btn);
-
-    // URL por sucursal usando id del service_provider
-    const url = b.booking_url || b.book_url || b.url
-              || (b.id ? 'https://sculptbody.agendapro.com/cl?service_provider_id=' + b.id : null)
-              || 'https://sculptbody.agendapro.com/cl';
-
-    // Campos reales del API: address, district, city, second_address
-    const addr  = [b.address, b.second_address, b.district, b.city].filter(Boolean).join(', ');
-    const phone = b.phone || b.phone_number || b.contact_phone || '';
 
     const panel = document.createElement('div');
     panel.className = 'tab-panel' + (i===0?' active':'');
     panel.innerHTML = `
-      <div class="branch-card">
-        <div class="branch-info">
-          <div class="branch-name">${(b.name || 'Sucursal ' + (i+1)).replace(/^Agenda\s*/i, '')}</div>
-          ${addr ? `<div class="branch-detail">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            ${addr}</div>` : ''}
-          ${phone ? `<div class="branch-detail">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 17.5z"/></svg>
-            ${phone}</div>` : ''}
-        </div>
-        <div class="branch-cta-area">
-          <p class="branch-cta-title">Reserva tu hora en esta sucursal. Sin llamadas, sin esperas.</p>
-          <a class="btn-agenda" href="${url}" target="_blank">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            Reservar en esta sucursal
-          </a>
-          <span class="btn-note">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            Menos de 2 minutos
-          </span>
-        </div>
+      <div class="iframe-panel">
+        <iframe
+          src="${b.booking_url}"
+          scrolling="yes"
+          marginwidth="0"
+          marginheight="0">
+        </iframe>
       </div>`;
     content.appendChild(panel);
   });
 }
 
 async function loadBranches() {
-  document.getElementById('loading-state').style.display = 'flex';
-  document.getElementById('error-state').style.display   = 'none';
-  document.getElementById('tabs-wrap').style.display     = 'none';
   try {
     const res  = await fetch(PROXY_URL);
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
-
-    document.getElementById('debug-box').textContent =
-      JSON.stringify(data.raw_sample || (data.branches && data.branches[0]) || data, null, 2);
-
     if (data.error) throw new Error(data.error);
     const branches = data.branches || data;
     if (!branches || !branches.length) throw new Error('Sin sucursales');
     buildTabs(branches);
   } catch(e) {
-    showError('Error: ' + e.message);
+    document.getElementById('loading-state').style.display = 'none';
+    document.getElementById('error-state').style.display   = 'flex';
+    document.getElementById('error-msg').textContent = 'Error: ' + e.message;
   }
 }
 
